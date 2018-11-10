@@ -42,7 +42,7 @@ class MainTest {
                 MainTest test = new MainTest();
                 startTheServer();
                 test.add();
-                
+
                 test.testDeleteAll();
                 test.testGetAll();
         }
@@ -76,7 +76,8 @@ class MainTest {
                 Assertions.assertEquals(Response.Status.CREATED.toString(), response.getStatusInfo().toString(),
                                 "PUT status code");
 
-                JsonArray jsonArray = client.target(getConnectionString("/user/get/Xyz")).request().get(JsonArray.class);
+                JsonArray jsonArray = client.target(getConnectionString("/user/get/Xyz")).request()
+                                .get(JsonArray.class);
 
                 List<User> actualList = new ArrayList<>();
 
@@ -104,7 +105,7 @@ class MainTest {
                 Client client = ClientBuilder.newClient();
 
                 Response response = client.target(getConnectionString("/user/add")).request().put(Entity.json(user));
-                
+
                 JsonObject jsonObject = client.target(getConnectionString(response.getLocation().getPath())).request()
                                 .get(JsonObject.class);
                 if (jsonObject != null && jsonObject.containsKey("id")) {
